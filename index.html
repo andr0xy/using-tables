@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Stock and Sell</title>
+
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+
+            table {
+                border-collapse: collapse;
+            }
+
+            table caption {
+                text-transform: uppercase;
+            }
+
+            thead th {
+                border-bottom: solid 3px #1f1f1f;
+            }
+
+            tbody td {
+                padding: 10px;
+                color: #1f1f1f;
+            }
+
+            tbody tr:hover {
+                background-color: #ccc;
+            }
+
+            tfoot {
+                color: #fff;
+                background-color: #1f1f1f;
+                font-weight: bold;
+                text-align: center;
+            }
+
+            tfoot td {
+                border-radius: 4px;
+            }
+
+            div {
+                display: flex;
+                flex-wrap: wrap;
+            }
+
+            div input {
+                margin: 5px;
+            }
+        </style>
+    </head>
+    <body>
+        <table>
+            <caption>Produtos em Estoque</caption>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Preço</th>
+                    <th>Quantidade</th>
+                    <th>Repositor</th>
+                    <th>Adicionado em</th>
+                    <th>Funções</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="6">TUDO EM UM SÓ LUGAR!</td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <div>
+            <input type="text" name="name" id="name" placeholder="Nome do produto" autocomplete="off">
+            <input type="number" name="price" id="price" placeholder="Preço do produto" autocomplete="off">
+            <input type="number" name="amount" id="amount" placeholder="Quantidade" autocomplete="off">
+            <input type="text" name="worker" id="worker" placeholder="Repositor" autocomplete="off">
+            <button onclick="addProduct()">Adicionar</button>
+        </div>
+
+        <script>
+            function addProduct() {
+                const productName = document.getElementById('name').value;
+                const productPrice = document.getElementById('price').value;
+                const productAmount = document.getElementById('amount').value;
+                const productWorker = document.getElementById('worker').value;
+
+                createProduct(productName, productPrice, productAmount, productWorker)
+            }
+
+            function createProduct(name, price, amount, worker) {
+                const tbody = document.getElementsByTagName('tbody')[0];
+                const tr = document.createElement('tr');
+                
+                const tdName = document.createElement('td');
+                const tdPrice = document.createElement('td');
+                const tdAmount = document.createElement('td');
+                const tdWorker = document.createElement('td');
+                const tdStamp = document.createElement('td');
+                const tdRemove = document.createElement('td');
+
+                const buttonRemove = document.createElement('button');
+                buttonRemove.innerText = 'Excluir';
+                buttonRemove.onclick = () => {
+                    const d = window.confirm('Deseja realmente deletar?');
+
+                    if (d) tr.remove();
+                }
+
+                tdName.innerText = name;
+                tdPrice.innerText = `R$${price}`;
+                tdAmount.innerText = amount;
+                tdWorker.innerText = worker;
+                tdStamp.innerText = new Date().getTime() / 1000;
+                tdRemove.appendChild(buttonRemove);
+
+                tr.appendChild(tdName);
+                tr.appendChild(tdPrice);
+                tr.appendChild(tdAmount);
+                tr.appendChild(tdWorker);
+                tr.appendChild(tdStamp);
+                tr.appendChild(tdRemove);
+
+                tbody.appendChild(tr);
+
+                alert('Adicionado!');
+            }
+        </script>
+    </body>
+</html>
